@@ -1,40 +1,66 @@
-// src/app/components/NoteEditor.tsx
+// app/components/NoteEditor.tsx
 import React, { useState } from 'react';
+import { FaSave, FaTrash } from 'react-icons/fa';
+import Editor from 'react-simple-wysiwyg';
+import { 
+    BtnBold,
+    BtnBulletList,
+    BtnClearFormatting,
+    BtnItalic,
+    BtnLink,
+    BtnNumberedList,
+    BtnRedo,
+    BtnStrikeThrough,
+    BtnStyles,
+    BtnUnderline,
+    BtnUndo,
+    HtmlButton,
+    Separator,
+    Toolbar,
+} from 'react-simple-wysiwyg';
+//import { getNotes, newNote, updateNote, deleteNote } from '~/.server/noteUtil';
 
-interface NoteEditorProps {
-    onAddNote: (note: string) => void; // Função callback para adicionar notas
-}
 
-const NoteEditor: React.FC<NoteEditorProps> = ({ onAddNote }) => {
-    const [noteText, setNoteText] = useState(''); // Estado para o texto da nota
+export default function NoteEditor() {
+    const [content, setContent] = useState('');
+    const [notes, setNotes] = useState([]);
+    const [selectedNoteId, setSelectedNoteId] = useState(null);
+    const [currentContent, setCurrentContent] = useState('');
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); // Prevê o comportamento padrão do formulário
-        if (noteText.trim()) { // Verifica se a nota não é vazia
-            onAddNote(noteText); // Chama a função para adicionar a nota
-            setNoteText(''); // Limpa o campo de texto
-        }
-    };
+    const handleSave = async (content) => {
+            console.log('nada');
+        };
+    
+        // const BtnAlignCenter = createButton('Align center', '≡', 'justifyCenter');
 
     return (
-        <div className="note-editor p-4 border border-gray-200 rounded-md">
-            <h2 className="text-lg font-semibold mb-2">Criar Nova Nota</h2>
-            <form onSubmit={handleSubmit}>
-                <textarea
-                    value={noteText}
-                    onChange={(e) => setNoteText(e.target.value)} // Atualiza o estado conforme usuário digita
-                    className="w-full h-24 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-                    placeholder="Escreva sua nota aqui..."
-                />
-                <button
-                    type="submit"
-                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
+        <div className="editor-container">
+            <h2>Editor de Notas</h2>            
+                <Editor 
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
                 >
-                    Adicionar Nota
-                </button>
-            </form>
+                <Toolbar>
+                    <BtnUndo />
+                    <BtnRedo />
+                    <Separator />
+                    <BtnBold />
+                    <BtnItalic />
+                    <BtnUnderline />
+                    <BtnStrikeThrough />
+                    <Separator />
+                    <BtnNumberedList />
+                    <BtnBulletList />
+                    <Separator />
+                    <BtnLink />
+                    <BtnClearFormatting />
+                    <HtmlButton />
+                    <Separator />
+                    <BtnStyles />
+                </Toolbar>
+                </Editor>
+            
+            <button onClick={handleSave}>Salvar</button>
         </div>
     );
-};
-
-export default NoteEditor;
+}

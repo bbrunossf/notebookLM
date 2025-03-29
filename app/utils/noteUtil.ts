@@ -1,1 +1,0 @@
- // Módulo utilitário para gerenciar notas

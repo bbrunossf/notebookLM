@@ -23,7 +23,8 @@ export default defineConfig({
   ],
   ssr: {
     noExternal: [
-      /@syncfusion/, 
+      /@syncfusion/,  
+      "react-simple-wysiwyg",     
       //"@mui/material",
       //"@mui/icons-material",
       //"ra-core",
